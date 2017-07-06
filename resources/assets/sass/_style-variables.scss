@@ -1,0 +1,92 @@
+﻿/*SCSS Document*/
+html, body, section, div, a, li, ul, span, aside, nav, footer{
+    font-family: 'Arimo', sans-serif, 'Noto Serif', serif;
+    font-size: 14px;
+}
+
+.nav-lateral{
+    width: 12em;
+    background-color: #FFF;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    position: fixed;
+    z-index: 2;
+    height: 100%;
+}
+
+ul > li > .fa{
+    text-align: right;
+}
+
+.item:hover{
+    
+    background-color: darkorange;
+    color: #fff;
+    transition: all 250ms ease;
+}
+
+.sair{
+    width: 100%;
+    position: absolute;
+    top:92%;    
+}
+
+#home-body{
+    margin-left: 12.2em;
+    height: 100%;
+    padding-top: 2.5em;
+}
+
+.home-title{
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+        text-decoration-line: none;
+    }
+
+.modal-header{
+    background-color: darkorange;
+    color: #fff;
+}
+
+.modal-title{
+    background-color: darkorange;
+    color: #fff;
+    font-size: 24px;
+    font-family: 'Noto Serif', serif;
+    text-align: center;
+}
+
+.title{
+   font-family: 'Source Sans Pro', sans-serif;
+   font-size: 55px;
+   margin-left: 5px;
+}
+
+.title_modal{
+    font-family: 'Source Sans Pro', sans-serif;
+   font-size: 35px;
+   margin-left: 5px;
+}
+
+.title::after{
+    background: darkorange;
+    width: 50px;
+    height: 5px;
+    display: block;
+    margin: 5px 0px 0px 0px;
+    content: '';
+}
+
+#dados_processo_clientes{
+    overflow: auto;
+    visibility: hidden;
+    z-index: -999999;
+}

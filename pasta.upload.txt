@@ -1,0 +1,262 @@
+//Pasta.blade.php
+@extends('layouts.primer')
+
+@section('content')
+    <div class="container-fluid" id="home-body">
+        <div class="row">
+            <h1 class="title">Arquivos</h1>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ Form::label('cliente', 'Cliente: ') }}
+                        {{ Form::select('cliente', $clientes, null, ['class'=>'form-control', 'data-token'=> csrf_token()]) }}
+                    </div><!--/.col-md-6-->
+                    <div class="col-md-6">
+                        {{ Form::label('processo', 'Processo: ') }}
+                        <select name="processo" id="processo" class="form-control" data-token="{{ csrf_token() }}">
+                        </select>
+                    </div>
+                </div><!--/.row-->
+            </div><!--/.panel-heading-->
+
+            <div class="panel-body">
+                <table class="table-borderless table-hover table-striped table-responsive" style="width: 100%;">
+                    <tbody id="items_processo">
+                    </tbody>
+                </table>
+            </div>
+        </div><!--/.panel-default-->
+        <a class="btn btn-success" data-toggle="modal" href='#modal-id'><i class="fa fa-plus-circle"></i></a>
+
+        <div class="modal fade" id="modal-id" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" style='width:80%'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="titulo_modal"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fileupload" action="//jquery-file-upload/js.appspot.com/" method="POST" enctype="multipart/form-data">
+                    <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                    <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/js/"></noscript>
+                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                    <div class="row fileupload-buttonbar">
+                        <!-- The table listing the files available for upload/download -->
+                        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+                        <!-- The global progress state -->
+
+                        <div class="col-lg-12" style="text-align: right;">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button">
+                                <i class="fa fa-plus"></i>
+                                <span>Adicionar Arquivos...</span>
+                                <input type="file" name="files[]" multiple>
+                            </span>
+                            <button type="submit" id="fileupload" class="btn btn-primary start" data-token="{{ csrf_token() }}">
+                                <i class="fa fa-upload"></i>
+                                <span>Iniciar Upload</span>
+                            </button>
+                            <button type="reset" class="btn btn-warning cancel">
+                                <i class="fa fa-ban"></i>
+                                <span>Cancelar</span>
+                            </button>
+                            <button type="button" class="btn btn-danger delete">
+                                <i class="fa fa-trash"></i>
+                                <span>Apagar</span>
+                            </button>
+                            <input type="checkbox" class="toggle">
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process"></span>
+                        </div>
+                    </div>
+                </form>
+                <script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Loading...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i) { %}
+            {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" disabled data-token="{{ csrf_token() }}">
+                    <i class="fa fa-upload"></i>
+                    <span>Iniciar</span>
+                </button>
+            {% } %}
+                <button class="btn btn-warning cancel">
+                    <i class="fa fa-ban"></i>
+                    <span>Cancelar</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                    <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="fa fa-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel">
+                    <i class="fa fa-ban"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div><!--/.container-->
+</div><!--/.#app-->
+@endsection
+
+@section('script')
+@parent
+    <script src="{{ asset('js/pastas.js') }}"></script>
+    <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+    <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/vendor/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-process.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-image.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-audio.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-video.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-validate.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/jquery.fileupload-ui.js') }}"></script>
+    <script src="{{ asset('jquery-file-upload/js/main.js') }}"></script>
+@stop
+
+//JS
+'use strict';
+$(document).ready(function(){ 
+    var $fileupload = $('#fileupload');
+    
+    //File Upload
+        var $p = $("#processo").val();
+
+    $fileupload.fileupload({
+        type: "GET",
+        url:  $p+'/upload',
+        dataType: 'json',
+        formData: {_token: $fileupload.data('token')}, 
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    });
+
+    //Cliente - Pesquisa
+    $('#cliente').on('blur', function(e, clientes){
+        e.preventDefault();
+        var options = "";
+        console.log("Iniciando... \n");
+        $.ajax({
+            type: "GET",
+            url: $("#cliente").val() + "/pesquisaCliente",
+            dataType: "json",
+            formData: {_token: $('cliente').data('token')},
+            success: function(cliente) {
+                $('.processo_opcao').remove();
+
+                console.log(cliente.length);
+                console.log("For => Inicio\n");
+                cliente.forEach(function(element) {
+                    element.forEach(function(processo) {
+                        $('<option value="'+ processo['id'] +'"class="processo_opcao">'+  processo['nome_processo']+' - '+ processo['numero_processo'] + '</option>').appendTo("#processo");
+
+                        console.log('<option value="'+processo.id+'">'+processo.nome_processo+'</option>/n');
+                    }, this);
+                }, this);
+                console.log("For => Finalizado\n");
+            },
+            error: function (clientes) {
+                window.alert("Ocorreu um erro durante a pesquisa!");
+            } 
+        });
+    });
+
+    //Processo - Pesquisa
+    $('#processo').on('blur',function (e) {
+        e.preventDefault();
+        
+        var processo = $("#processo").val();
+        
+        $.ajax({
+            type: "GET",
+            url: processo + "/pesquisaProcesso",
+            dataType: "json",
+            formData: {_token: $('processo').data('token')},
+            success: function (response) {
+                $(".title_modal").remove();
+                response.forEach(function(x) {
+                    $("#titulo_modal").append('<div class="title_modal" value="'+x.id+'" id="processo_id_backup">'+x.nome_processo+' - '+x.numero_processo+'</div>' );
+                    console.log(x['nome_processo']+' - '+x['numero_processo']);
+                }, this);
+
+
+            }
+        });
+    });
+
+})
