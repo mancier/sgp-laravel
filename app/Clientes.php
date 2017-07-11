@@ -28,6 +28,6 @@ class Clientes extends Model
     }
 
     public function files(){
-        return $this->belongsTo('App\File', 'id');
+        return $this->belongsToMany('App\File', 'id');
     }
 }

@@ -8,7 +8,7 @@ class File extends Model
 {
     protected $fillable=
     [
-        'name',
+        'nome',
         'clientes_id',
         'processos_id',
         'caminho'
@@ -19,6 +19,6 @@ class File extends Model
     }
 
     public function processos(){
-        return $this->hasMany('App\Processos', 'processos_id');    
+        return $this->belongsTo('App\Processos', 'processos_id');    
     }
 }

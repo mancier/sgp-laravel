@@ -45,7 +45,7 @@ class clientesController extends Controller
 		$clientes = Clientes::find($id);
 		$clientes->delete();
 
-		return redirect('clientes');
+		return redirect()->route('clientes');
 	}
 
 

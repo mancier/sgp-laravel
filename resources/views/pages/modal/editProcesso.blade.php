@@ -23,22 +23,12 @@
                     
                     <div class="form-group">
                         {{ Form::label('cliente_id', 'Requerinte*: ') }}
-                        {{ Form::select('cliente_id', $clientes, $processos->id, ['class'=>'form-control', 'required']) }}
+                        {{ Form::select('cliente_id', $clientes, $processos->clientes_id, ['class'=>'form-control', 'required']) }}
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-8">
-                            {{ Form::label('requerendo', 'Requerendo: ') }}
-                            {{ Form::text('requerendo', $processos->requerendo, ['class'=>'form-control']) }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ Form::label('requerendo_tipo', 'Tipo') }}
-                            {{ Form::select('requerendo_tipo', array(
-                                'Advogado' => 'Advogado',
-                                'Estagário' => 'Estagário',
-                                'Outros' => 'Outros'
-                            ), $processos->requerendo_tipo, ['class'=>'form-control']) }}
-                        </div>
+                    <div class="form-group">
+                        {{ Form::label('requerendo', 'Requerendo: ') }}
+                        {{ Form::text('requerendo', $processos->requerendo, ['class'=>'form-control']) }}
                     </div>
 
                     <div class="form-group">

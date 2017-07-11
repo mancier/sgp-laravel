@@ -30,13 +30,14 @@ class AjaxController extends Controller
 
     function Processos_to_Directory($id){
         $nome = Processos::find($id)->nome_processo;
+
         Session::put('Processo_ID', $id);
         Session::put('Session_Processo', $nome);
 
         $processo = Processos::find($id);
-        $arquivos = Processos::find($id)->files();
+        $arquivos = Processos::find($id)->files;
 
-        return response()->json([ $processo ]);
+        return response()->json([ $arquivos ]);
     }
 
     function update_cliente($id){

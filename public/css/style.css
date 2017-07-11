@@ -78,4 +78,7 @@ a:hover {
   visibility: hidden;
   z-index: -999999; }
 
+.tabela-head {
+  visibility: hidden; }
+
 /*# sourceMappingURL=style.css.map */

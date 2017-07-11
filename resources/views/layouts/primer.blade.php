@@ -49,8 +49,8 @@
 
 			<a href="./movimentacao">
 				<li class="list-group-item item">
-					<span class="menu-text">Movimentações </span>
-					<i class="fa fa-bar-chart" aria-hidden="true"></i>
+					<span class="menu-text">Financeiro </span>
+					<i class="fa fa-university" aria-hidden="true"></i>
 				</li>
 			</a>
 

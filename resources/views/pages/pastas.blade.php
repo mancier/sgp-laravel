@@ -26,6 +26,7 @@
             </div><!--/.panel-heading-->
 
             <div class="panel-body">
+            <div id="items_processo" style="width: 100%;"></div>
                 <form action="upload" id="upload" enctype="multipart/form-data">
                 <span class="btn btn-default fileinput-button">
                     <i class="fa fa-plus"></i>
@@ -36,11 +37,6 @@
                 <div id="progress" class="progress">
                     <div class="progress-bar progress-bar-primary progress-bar-striped active"></div>
                 </div>
-                <!-- The container for the uploaded files -->
-                <div id="files" class="files"></div>
-                <table class="table-borderless table-hover table-striped table-responsive" style="width: 100%;">
-                    <tbody id="items_processo"></tbody>
-                </table>
             </div>
         </div><!--/.panel-default-->
     </div><!--/.container-->

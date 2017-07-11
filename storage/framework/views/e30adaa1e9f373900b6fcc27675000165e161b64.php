@@ -24,8 +24,8 @@
                     <td><?php echo e($processo->valor_causa); ?></td>
                     <td>
                         <div class="row">
-                            <div class="col-md-6"><a href="<?php echo e(route('processos.destroy', ['id'=>$processo->id])); ?>" class="btn btn-success" style="width: 100%"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
-                            <div class="col-md-6"><a href="<?php echo e(route('processos.alt', ['id'=>$processo->id])); ?>" class="btn btn-danger" style="width: 100%"><i class="fa fa-trash" aria-hidden="true"></i></a></div>
+                            <div class="col-md-6"><a href="<?php echo e(route('processos.alt', ['id'=>$processo->id])); ?>" class="btn btn-success" style="width: 100%"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
+                            <div class="col-md-6"><a href="<?php echo e(route('processos.destroy', ['id'=>$processo->id])); ?>" class="btn btn-danger" style="width: 100%"><i class="fa fa-trash" aria-hidden="true"></i></a></div>
                         </div>
                     </td>
                 </tr>
@@ -47,14 +47,14 @@
                 <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6">
-                            <?php echo e(Form::label('numero_processo', 'Número do Processo*: ')); ?>
+                        <?php echo e(Form::label('numero_processo', 'Número do Processo*: ')); ?>
 
-                            <?php echo e(Form::text ('numero_processo', null, ['class'=>'form-control', 'required'])); ?>
+                        <?php echo e(Form::text ('numero_processo', null, ['class'=>'form-control', 'required', 'maxlength'=>'19'])); ?>
 
                     </div>
 
                     <div class="form-group col-md-6">
-                        <?php echo e(Form::label('nome_processo', 'Nome do Processo*: ')); ?>
+                        <?php echo e(Form::label('nome_processo', 'Nome da Ação*: ')); ?>
 
                         <?php echo e(Form::text ('nome_processo', null, ['class'=>'form-control', 'required'])); ?>
 
@@ -62,29 +62,17 @@
                 </div>
                     
                     <div class="form-group">
-                        <?php echo e(Form::label('cliente_id', 'Requerinte*: ')); ?>
+                        <?php echo e(Form::label('clientes_id', 'Requerente*: ')); ?>
 
-                        <?php echo e(Form::select('cliente_id', $clientes, null, ['class'=>'form-control', 'required'])); ?>
+                        <?php echo e(Form::select('clientes_id', $clientes, null, ['class'=>'form-control', 'required'])); ?>
 
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-8">
-                            <?php echo e(Form::label('requerendo', 'Requerendo: ')); ?>
+                    <div class="form-group">
+                        <?php echo e(Form::label('requerendo', 'Requerido: ')); ?>
 
-                            <?php echo e(Form::text('requerendo', null, ['class'=>'form-control'])); ?>
+                        <?php echo e(Form::text('requerendo', null, ['class'=>'form-control'])); ?>
 
-                        </div>
-                        <div class="col-md-4">
-                            <?php echo e(Form::label('requerendo_tipo', 'Tipo')); ?>
-
-                            <?php echo e(Form::select('requerendo_tipo', array(
-                                'Advogado' => 'Advogado',
-                                'Estagário' => 'Estagário',
-                                'Outros' => 'Outros'
-                            ), null, ['class'=>'form-control'])); ?>
-
-                        </div>
                     </div>
 
                     <div class="form-group">
@@ -102,9 +90,9 @@
 
                         </div>
                         <div class="col-md-5">
-                            <?php echo e(Form::label('valor_causa', 'Valor da Causa*:')); ?>
+                            <?php echo e(Form::label('valor_causa', 'Valor da Causa:')); ?>
 
-                            <?php echo e(Form::text('valor_causa', null, ['class'=>'form-control', 'required'])); ?>
+                            <?php echo e(Form::text('valor_causa', null, ['class'=>'form-control'])); ?>
 
                         </div>
                     </div>
@@ -119,8 +107,6 @@
             </div>
         </div>
     </div>
-    
-
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.primer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

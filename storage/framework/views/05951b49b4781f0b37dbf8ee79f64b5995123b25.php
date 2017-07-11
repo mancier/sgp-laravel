@@ -28,8 +28,7 @@
                 <td><?php echo e($cliente->cep); ?></td>
                 <td>
                     <div class="row">
-                        <div class="col-md-6"><a href="" class="btn btn-success" style="width: 100%"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
-                        <div class="col-md-6"><a href="" class="btn btn-danger" style="width: 100%"><i class="fa fa-trash" aria-hidden="true"></i></a></div>
+                        <div class="col-md-12"><a href="<?php echo e(route('cliente.edit', ['id'=>$cliente->id])); ?>" class="btn btn-success" id="edit" style="width: 100%" data-token="<?php echo e(csrf_token()); ?>"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
                     </div>
                 </td>
             </tr>
@@ -101,21 +100,21 @@
                         <div class="form-group col-md-3">
                             <?php echo e(Form::label('cep', 'CEP:*')); ?>
 
-                            <?php echo e(Form::text('cep', null, ['class'=>'form-control', 'required', 'v-on'=>'keyup:buscar','v-model'=>'cep'])); ?>
+                            <?php echo e(Form::text('cep', null, ['class'=>'form-control', 'required'])); ?>
 
                         </div>
                             
                         <div class="form-group col-md-5">
                             <?php echo e(Form::label('municipio', 'Cidade:')); ?>
 
-                            <?php echo e(Form::text('municipio', null, ['class'=>'form-control'])); ?>
+                            <?php echo e(Form::text('municipio', null, ['class'=>'form-control', 'readonly'])); ?>
 
                         </div>
 
                         <div class="form-group col-md-4">
                             <?php echo e(Form::label('uf', 'UF:')); ?>
 
-                            <?php echo e(Form::text('uf', null, ['class'=>'form-control'])); ?>
+                            <?php echo e(Form::text('uf', null, ['class'=>'form-control', 'readonly'])); ?>
 
                         </div>
 
@@ -124,7 +123,7 @@
                     <div class="form-group">
                         <?php echo e(Form::label('endereco', 'Endereço:')); ?>
 
-                        <?php echo e(Form::text('endereco', null, ['class'=>'form-control'])); ?>
+                        <?php echo e(Form::text('endereco', null, ['class'=>'form-control', 'readonly'])); ?>
 
                     </div>
                     </div>
@@ -151,9 +150,5 @@
    </div>
 
 </div>
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('script'); ?>
-##parent-placeholder-cb5346a081dcf654061b7f897ea14d9b43140712##
-<script src="<?php echo e(asset('js/clientes.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.primer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

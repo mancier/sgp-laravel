@@ -23,6 +23,6 @@ class Processos extends Model
 	}
 	
 	public function files(){
-		return $this->belongsTo('App\File', 'id');
+		return $this->hasMany ('App\File');
 	}
 }

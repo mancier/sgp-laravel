@@ -23,6 +23,14 @@ $(document).ready(function(){
 
         error: function(e) {
          window('Ocorreu uma falha durante o upload!\nEntre em contato com o administrador');
+        },
+
+        done: function(e){
+            window.alert("Upload Concluído!");
+            $('#progress .progress-bar').css(
+                'width',
+                0 + '%'
+            );
         }
     });
 
@@ -33,7 +41,6 @@ $(document).ready(function(){
         $("#cliente").val()
 
         var options = "";
-        console.log("Iniciando... \n");
         $.ajax({
             type: "GET",
             url: $("#cliente").val() + "/pesquisaCliente",
@@ -41,16 +48,11 @@ $(document).ready(function(){
             formData: {_token: $('cliente').data('token')},
             success: function(cliente) {
                 $('.processo_opcao').remove();
-
-                console.log(cliente.length);
-                console.log("For => Inicio\n");
                 cliente.forEach(function(element) {
                     element.forEach(function(processo) {
                         $('<option value="'+ processo['id'] +'"class="processo_opcao">'+  processo['nome_processo']+' - '+ processo['numero_processo'] + '</option>').appendTo("#processo");
-                        console.log('<option value="'+processo.id+'">'+processo.nome_processo+'</option>/n');
                     }, this);
                 }, this);
-                console.log("For => Finalizado\n");
             },
             error: function (clientes) {
                 window.alert("Ocorreu um erro durante a pesquisa!");
@@ -63,6 +65,7 @@ $(document).ready(function(){
         e.preventDefault();
         
         var processo = $("#processo").val();
+        var tabela = $('#items_processo');
         
         $.ajax({
             type: "GET",
@@ -70,10 +73,12 @@ $(document).ready(function(){
             dataType: "json",
             formData: {_token: $('processo').data('token'), processoId: $('#processo_data').data('processoId')},
             success: function (response) {
-                $("#processo_data").remove();
-                response.forEach(function(x) {
-                    $('<div id="processo_data" value="'+processo+'"></div>').appendTo('#app');
-                }, this);
+                $(".arquivos").remove();
+                    response.forEach(function (arquivos){
+                       arquivos.forEach(function(x){
+                            $('#items_processo').append('<li class="list-group-item arquivos">'+x['nome']+'</li>');
+                    });
+                });
             }
         });
     });
